@@ -5,7 +5,7 @@ This is a small C-program for Linux that shows the nondeterministic behavior in 
 
 The program calculates the following sum:
 
-*sum_{i = -Nsum/2}^{Nsum/2} i*1e-1* 
+    sum_{i=-Nsum/2}^{Nsum/2} i*1e-1
  
 in multiple runs with multiple threads using OpenMP.
 
@@ -20,7 +20,7 @@ parallel computing.
 ## Compiltation
 Compile with OpenMP and -lm flag:
 
-*gcc -o multicore_nondeterminisitc -fopenmp multicore_nondeterminisitc.c -lm*
+    gcc -o multicore_nondeterminisitc -fopenmp multicore_nondeterminisitc.c -lm
  
 
 ## Execution and Results Interpretation:
@@ -29,7 +29,7 @@ Compile with OpenMP and -lm flag:
 
 Run command:
 
-*export OMP_NUM_THREADS=1 && ./multicore_nondeterminisitc*
+    export OMP_NUM_THREADS=1 && ./multicore_nondeterminisitc
 
 The result is different than 0 since 1e-1 does not have an 
 exact representation in floating point arithmetic. 
@@ -40,7 +40,7 @@ for different program runs.
 
 Run command:  
 
-*export OMP_NUM_THREADS=2 && ./multicore_nondeterminisitc*
+    export OMP_NUM_THREADS=2 && ./multicore_nondeterminisitc
 
 Now, the results differ heavily due to the nondeterministic 
 nature of parallel computing (mainly due to the fact that 
@@ -50,29 +50,33 @@ threads/cores is random).
 
 ## Example Outputs
 
-$ export OMP_NUM_THREADS=1 && ./multicore_nondeterminisitc  
-Number of threads:       1  
+Example output for 1 thread:
 
-Result for run:  1:      -2.451e-13  
-Result for run:  2:      -2.451e-13  
-Result for run:  3:      -2.451e-13  
-Result for run:  4:      -2.451e-13  
-Result for run:  5:      -2.451e-13  
-Result for run:  6:      -2.451e-13  
+    $ export OMP_NUM_THREADS=1 && ./multicore_nondeterminisitc  
+    Number of threads:       1  
+    
+    Result for run:  1:      -2.451e-13  
+    Result for run:  2:      -2.451e-13  
+    Result for run:  3:      -2.451e-13  
+    Result for run:  4:      -2.451e-13  
+    Result for run:  5:      -2.451e-13  
+    Result for run:  6:      -2.451e-13  
+    
+    Mean:                    -2.451e-13  
+    Standard deviation:       0.000e+00  
 
-Mean:                    -2.451e-13  
-Standard deviation:       0.000e+00  
 
+Example output for 2 threads:
 
-$ export OMP_NUM_THREADS=2 && ./multicore_nondeterminisitc   
-Number of threads:       2  
+    $ export OMP_NUM_THREADS=2 && ./multicore_nondeterminisitc   
+    Number of threads:       2  
 
-Result for run:  1:      -2.522e+03  
-Result for run:  2:       3.925e+03  
-Result for run:  3:       1.929e+03  
-Result for run:  4:       2.500e+03  
-Result for run:  5:       3.187e+03  
-Result for run:  6:       4.463e+03  
-
-Mean:                     2.247e+03  
-Standard deviation:       2.511e+03  
+    Result for run:  1:      -2.522e+03  
+    Result for run:  2:       3.925e+03  
+    Result for run:  3:       1.929e+03  
+    Result for run:  4:       2.500e+03  
+    Result for run:  5:       3.187e+03  
+    Result for run:  6:       4.463e+03  
+    
+    Mean:                     2.247e+03  
+    Standard deviation:       2.511e+03  
