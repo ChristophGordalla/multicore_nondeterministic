@@ -55,7 +55,7 @@ double calc_sum()
 	
 	#pragma omp parallel reduction (+ : sum)
 	for(i=-Nsum/2; i<=Nsum/2; i++){
-        sum += (+1) * i/2 * 1e-1;
+        sum += i * 1e-1;
 	}
 
 	return sum;
