@@ -65,6 +65,8 @@ Example output for 1 thread:
     Mean:                    -2.451e-13  
     Standard deviation:       0.000e+00  
 
+One can see that the sum has a small numerical value different than 0, but for each run the results are reliable.
+
 
 Example output for 2 threads:
 
@@ -80,3 +82,5 @@ Example output for 2 threads:
     
     Mean:                     2.247e+03  
     Standard deviation:       2.511e+03  
+
+Now, the situation has changed. The variation of the sum from 0 is much higher, and for each run one gets different result which is completely random.
