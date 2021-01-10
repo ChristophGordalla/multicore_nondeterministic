@@ -55,14 +55,14 @@ Example output for 1 thread:
     $ export OMP_NUM_THREADS=1 && ./multicore_nondeterminisitc  
     Number of threads:       1  
     
-    Result for run:  1:      -2.451e-13  
-    Result for run:  2:      -2.451e-13  
-    Result for run:  3:      -2.451e-13  
-    Result for run:  4:      -2.451e-13  
-    Result for run:  5:      -2.451e-13  
-    Result for run:  6:      -2.451e-13  
+    Result for run:  1:      -1.990e-13  
+    Result for run:  2:      -1.990e-13  
+    Result for run:  3:      -1.990e-13  
+    Result for run:  4:      -1.990e-13  
+    Result for run:  5:      -1.990e-13  
+    Result for run:  6:      -1.990e-13  
     
-    Mean:                    -2.451e-13  
+    Mean:                    -1.990e-13  
     Standard deviation:       0.000e+00  
 
 One can see that the sum has a small numerical value different than 0, but for each run the results are reliable.
