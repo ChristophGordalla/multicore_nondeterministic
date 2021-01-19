@@ -1,7 +1,7 @@
-/* 2018-05-10
+/* 2020-01-07
  * 
  * Compile with:
- * gcc -o multicore_nondeterminisitc -fopenmp multicore_nondeterminisitc.c -lm
+ * gcc -o multicore_nondeterminisitc -fopenmp multicore_nondeterministic.c -lm
  * 
  * This is a small program for Linux that calculates the sum
  * 
@@ -35,22 +35,22 @@
  * */
 
 
-
+#include <stdint.h>
 #include <stdio.h>
 #include <math.h>
 #include <omp.h>
 
 
 
-int Nsum = 1000;
-int Nruns = 6;
+const uint16_t Nsum = 1000;
+const uint8_t Nruns = 6;
 
 
-/* Calculates the sum mentiones in the comment above.
+/* Calculates the sum mentioned in the comment above.
  * */
 double calc_sum()
 {
-	int i;
+	int16_t i;
 	double sum = 0.;
 	
 	#pragma omp parallel reduction (+ : sum)
@@ -65,38 +65,34 @@ double calc_sum()
 /* Calculates the mean and standard deviaton 
  * for the values of an array x with length N.
  * 
- * @param N			input, number of elements in array
  * @param x			input, pointer of first element of array
- * @param *mean		output, mean value of x
- * @param *stddev	output, standard deviation of x
+ * @param mean		output, pointer to the mean value of x
+ * @param stddev	output, pointer to the standard deviation of x
  * */
-double calc_mean_and_stddev(int N, double* x, double* mean, double* stddev)
+double calc_mean_and_stddev(const double *x, double *mean, double *stddev)
 {
-    int i;
-    *mean = 0.;
-    *stddev = 0.;
+    uint8_t i;
     
     // calculate mean
-    for(i=0; i<N; i++){
+    for(i=0; i<Nruns; i++){
         *mean += x[i];
     }
-    *mean = *mean/N;
+    *mean = *mean/Nruns;
     
     // calculate standard deviation
-    for(i=0; i<N; i++){
+    for(i=0; i<Nruns; i++){
         *stddev += (x[i]-*mean)*(x[i]-*mean);
     }
-    *stddev = sqrt(*stddev/(N-1));
+    *stddev = sqrt(*stddev/(Nruns-1));
 }
 
 
 // main method
 int main()
 {
-    int i;
-    double value;
+    uint8_t i;
+    double mean = 0, stddev = 0;
     double values[Nruns];
-    double mean, stddev;
     
     // print number of threads first
     #pragma omp parallel
@@ -106,12 +102,11 @@ int main()
 	}
     
     for(i=0; i<Nruns; i++){
-       value = calc_sum();
-       values[i] = value;
-       printf("Result for run: %2d:\t % -6.3e\n", i+1, value);
+       values[i] = calc_sum();
+       printf("Result for run: %2d:\t % -6.3e\n", i+1, values[i]);
     }
     
-    calc_mean_and_stddev(Nruns, values, &mean, &stddev);
+    calc_mean_and_stddev(values, &mean, &stddev);
     
     printf("\nMean:\t\t\t % -6.3e\nStandard deviation:\t % -6.3e\n", mean, stddev);
     
