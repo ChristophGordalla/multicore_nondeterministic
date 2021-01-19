@@ -65,7 +65,7 @@ double calc_sum()
 /* Calculates the mean and standard deviaton 
  * for the values of an array x with length N.
  * 
- * @param x			input, pointer of first element of array
+ * @param x		input, pointer of first element of array
  * @param mean		output, pointer to the mean value of x
  * @param stddev	output, pointer to the standard deviation of x
  * */
