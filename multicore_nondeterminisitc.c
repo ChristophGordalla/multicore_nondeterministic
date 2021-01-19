@@ -1,4 +1,4 @@
-/* 2020-01-07
+/* 2018-05-10
  * 
  * Compile with:
  * gcc -o multicore_nondeterminisitc -fopenmp multicore_nondeterministic.c -lm
@@ -54,7 +54,7 @@ double calc_sum()
 	double sum = 0.;
 	
 	#pragma omp parallel reduction (+ : sum)
-	for(i=-Nsum/2; i<=Nsum/2; i++){
+	for(i=-Nsum/2; i<=Nsum/2; ++i){
         sum += i * 1e-1;
 	}
 
@@ -74,13 +74,13 @@ double calc_mean_and_stddev(const double *x, double *mean, double *stddev)
     uint8_t i;
     
     // calculate mean
-    for(i=0; i<Nruns; i++){
+    for(i=0; i<Nruns; ++i){
         *mean += x[i];
     }
     *mean = *mean/Nruns;
     
     // calculate standard deviation
-    for(i=0; i<Nruns; i++){
+    for(i=0; i<Nruns; ++i){
         *stddev += (x[i]-*mean)*(x[i]-*mean);
     }
     *stddev = sqrt(*stddev/(Nruns-1));
@@ -101,7 +101,7 @@ int main()
 		printf("Number of threads:\t %d\n\n", omp_get_num_threads());
 	}
     
-    for(i=0; i<Nruns; i++){
+    for(i=0; i<Nruns; ++i){
        values[i] = calc_sum();
        printf("Result for run: %2d:\t % -6.3e\n", i+1, values[i]);
     }
